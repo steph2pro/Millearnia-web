@@ -1,7 +1,7 @@
 import ButtonSubmit from "../components/Button";
 import Input from "../components/Input";
 import 'react-toastify/dist/ReactToastify.css';
-import useConnexionController from "../hook/useConnexionController.ts";
+import useConnexionController from "../hook/useConnexionController";
 
 
 export default function Connexion() {
@@ -9,120 +9,108 @@ export default function Connexion() {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="relative flex items-center justify-center h-screen bg-center bg-cover"
+                style={{
+                    backgroundImage: "url('assets/bg.png')",
+                }}
+                >
+                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-                {/* <div className="bg-gray-100  flex flex-col content-center items-center justify-center h-screen">
-                    <div className="bg-white min-w-[40vw] max-w-lg shadow-lg mx-auto py-10 lg:px-20 rounded-md">
-                        <div className="text-center	mt-5 flex items-center justify-center	">
-                            <h1 className="text-center text-5xl text-green-950 mb-7 font-bold ">Connexion</h1>
-                        </div>
+                <div className="relative z-10 flex flex-col items-center justify-center max-w-4xl p-10 bg-center bg-cover rounded-lg shadow-lg md:flex-row"
+                style={{
+                    backgroundImage: "url('assets/bg.png')",
+                }}
+                >
+                    {/* Left Section */}
+                    <div className="p-8 bg-gradient-to-r from-white/30 to-transparent md:w-1/2">
+                    <h1 className="text-xl font-bold text-gray-900">
+                        Bonjour ! <br />
+                        <span className="text-2xl text-green-700">Bon retour sur votre espace personnel !</span>
+                    </h1>
+                    <p className="mt-4 text-gray-600">
+                        Nous sommes ravis de vous retrouver parmi nous.
+                    </p>
+                    </div>
 
-                        <Input type="email" placeholder="Email " {...register("email")} />
-                        {errors?.email && (
-                            <span className="text-sm text-rose-500	">
-                    {errors.email.message}
-                </span>
-                        )}
-                        <Input type="password" placeholder="Mot de passe"{...register("password")} />
-                        {errors?.password && (
-                            <span className="text-sm text-rose-500	">
-                    {errors.password.message}
-                </span>
-                        )}
-
-                        <div className="w-full my-8 ">
-                            <ButtonSubmit isForm={true} isLoading={loginQuery.isLoading} > Se connecter </ButtonSubmit>
+                    {/* Right Section */}
+                    <div className="p-8 bg-white rounded-2xl md:w-1/2">
+                    <div className="flex items-center justify-center text-center ">
+                        <div>
+                        <h2 className="text-3xl font-bold text-center text-green-950 ">Se Connecter</h2>
+                        <p className="mb-4 text-sm text-gray-500">
+                            Accédez à votre espace personnel !
+                        </p>
 
                         </div>
                     </div>
+                    <div className="space-y-4">
+                            <label className="block text-gray-700">Email or Phone Numbre</label>
+                            <Input 
+                                type="email" 
+                                {...register("identifier")}
+                                placeholder="Enter your email or phone"
+                            />
+                            {errors.identifier && <span>{errors.identifier.message}</span>}
+                    </div>
+                    <div>
+                            <label className="block mt-4 text-gray-700">Set password</label>
 
-                </div> */}
-                <div className="min-h-screen flex items-center justify-center bg-teal-100">
-                    <div className="flex max-w-4xl shadow-lg rounded-lg overflow-hidden bg-white">
-                        {/* Left Section */}
-                        <div className="flex-1 bg-gradient-to-br from-blue-900 via-teal-500 to-orange-500 p-8 flex flex-col justify-between rounded-br-[15px] rounded-tr-[15px]">
-                        <div>
-                            <h1 className="text-white font-bold text-2xl mb-4">THEGOOD NETWORK</h1>
-                            <h2 className="text-white text-3xl font-semibold">
-                            Invite only right now.
-                            </h2>
-                            <p className="text-white mt-4">
-                            10 Million+ people have joined our network. We invite you to join
-                            the tribe.
-                            </p>
-                        </div>
-                        <p className="text-white mt-6">
-                            Already have an account?{" "}
-                            <a href="#" className="underline text-white font-medium">
-                            Sign in
-                            </a>
-                        </p>
-                        </div>
-
-                        {/* Right Section */}
-                        <div className="flex-1 bg-white p-8">
-                        <div className="text-center	mt-5 flex items-center justify-center	">
-                            <h1 className="text-center text-5xl text-green-950 mb-7 font-bold ">Connexion</h1>
-                        </div>
-                        <div className="space-y-4">
-                            <div>
-                            <label className="block text-gray-700">Email address</label>
-                            <Input type="email" placeholder="Email " {...register("email")} />
-                        {errors?.email && (
-                          <span className="text-sm text-rose-500	">
-                          {errors.email.message}
-                      </span>
-                              )}
-                            {/* <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-green-300"
-                            /> */}
-                            </div>
-                            <div>
-                            <label className="block text-gray-700">Set password</label>
-
-                            {/* <input
-                                type="password"
-                                placeholder="Enter password"
-                                className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-green-300"
-                            /> */}
                              <Input type="password" placeholder="Mot de passe"{...register("password")} />
                                     {errors?.password && (
-                                        <span className="text-sm text-rose-500	">
+                                        <span className="text-sm text-rose-500 ">
                                             {errors.password.message}
                                          </span>
                                     )}
                             </div>
-                            {/* <button
-                            type="submit"
-                            className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition"
-                            >
-                            Sign up
-                            </button> */}
-                            <div className="w-full my-8 ">
-                              <ButtonSubmit isForm={true} isLoading={loginQuery.isLoading} > Se connecter </ButtonSubmit>
-
-                            </div>
+                        <div>
+                        <p className="mt-1 text-sm text-right text-green-700 cursor-pointer hover:underline">
+                            Mot de passe oublié ?
+                        </p>
+                       
                         </div>
-                        <div className="mt-6 flex items-center justify-between">
+                        <div className="w-full mt-4">
+                         <ButtonSubmit isForm={true} isLoading={loginQuery.isLoading} > Se connecter </ButtonSubmit>
+                         {loginQuery.isError && (
+                            <p className="text-red-500">
+                            {loginQuery.error?.message || "An unexpected error occurred"}
+                            </p>
+                        )}
+                        </div>
+                        <div className="flex items-center justify-between mt-6">
                             <div className="w-full border-b border-gray-300"></div>
                             <span className="px-3 text-gray-500">or</span>
                             <div className="w-full border-b border-gray-300"></div>
                         </div>
-                        <button
-                            className="w-full flex items-center justify-center mt-4 py-3 border border-green-500 rounded-lg hover:bg-gray-100 transition"
-                        >
-                            <img
+                    <div className="flex justify-center space-x-4">
+                    <button className="p-2 rounded-full hover:bg-gray-300">
+                        <img
+                            src="https://www.facebook.com/favicon.ico"
+                            alt="Facebook"
+                            className="w-5 h-5 mr-3"
+                        />
+                    </button>
+                        <button className="p-2 rounded-full hover:bg-gray-300">
+                        <img
                             src="https://www.google.com/favicon.ico"
                             alt="Google"
                             className="w-5 h-5 mr-3"
                             />
-                            Continue with Google
                         </button>
-                        </div>
-                    </div>
-                    </div>
 
+                        <button className="p-2 rounded-full hover:bg-gray-300">
+                        <img
+                            src="https://twitter.com/favicon.ico"
+                            alt="Twitter"
+                            className="w-5 h-5 mr-3"
+                        />
+                        </button>
+                        
+                    </div>
+                    </div>
+                </div>
+                </div>
+            );
+        
             </form>
 
 

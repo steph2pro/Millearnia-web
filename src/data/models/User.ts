@@ -1,8 +1,17 @@
 type UserPorps = {
-    id?: string,
-    username?: string,
-    email: string,
-    password: string
+  id  :          number,   
+  name :         string,
+  email :        string,
+  phone :        string,   
+  password?  :    string,
+  role:          string,
+  status:        string,
+  createdAt:    string, 
+  updatedAt:    string, 
+  refreshToken?:  string[],  
+  professions? :  string[],
+  comments?  : string[],
+
 }
 
 export default UserPorps;

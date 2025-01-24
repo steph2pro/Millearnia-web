@@ -1,8 +1,9 @@
 import {BoxArrowLeft, HouseGear,} from "react-bootstrap-icons"
 import React, {PropsWithChildren, ReactNode} from "react"
-import {UserPorps} from "../../../data/models";
+// import {UserPorps} from "../../../data/models";
 import {useLocation, useNavigate,} from "react-router-dom";
-import {STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_OUT} from "../../utils/const.ts";
+import {STRING_ROUTE_COMMENTS, STRING_ROUTE_COURSES, STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_OUT, STRING_ROUTE_PROFESSIONS, STRING_ROUTE_USERS, STRING_ROUTE_VIDEOS} from "../../utils/const.ts";
+import UserPorps from "../../../data/models/User.ts";
 
 export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
 
@@ -12,27 +13,33 @@ export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
     const handleChangePage = (index: number) => {
         switch (index) {
             case 0:{
-                route(STRING_ROUTE_HOME);
+                route(STRING_ROUTE_DASHDORD);
                 break;
             }
             case 1:
             {
-                route(STRING_ROUTE_DASHDORD);
+                route(STRING_ROUTE_USERS);
                 break;
             }
             case 2:{
-                route(STRING_ROUTE_HOME);
+                route(STRING_ROUTE_COURSES);
                 break;
             }
             case 3:
             {
-                route(STRING_ROUTE_OUT);
+                route(STRING_ROUTE_PROFESSIONS);
                 break;
             }case 4:{
-                route(STRING_ROUTE_HOME);
+                route(STRING_ROUTE_VIDEOS);
                 break;
             }
             case 5:
+            {
+                route(STRING_ROUTE_COMMENTS);
+                break;
+            }
+            
+            case 6:
             {
                 route(STRING_ROUTE_OUT);
                 break;
@@ -54,17 +61,17 @@ export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
                 </div>
                 
 
-                <NavBarItem title="Dashboard" icon={'📊'} isActive={location.pathname == STRING_ROUTE_HOME} index={0}
+                <NavBarItem title="Dashboard" icon={'📊'} isActive={location.pathname == STRING_ROUTE_DASHDORD} index={0}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Users" icon={'👤'} isActive={location.pathname == STRING_ROUTE_HOME} index={1}
+                <NavBarItem title="Users" icon={'👤'} isActive={location.pathname == STRING_ROUTE_USERS} index={1}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Courses" icon={'📘'} isActive={location.pathname == STRING_ROUTE_HOME} index={1}
+                <NavBarItem title="Courses" icon={'📘'} isActive={location.pathname == STRING_ROUTE_COURSES} index={2}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Professions" icon={'💼'} isActive={location.pathname == STRING_ROUTE_HOME} index={1}
+                <NavBarItem title="Professions" icon={'💼'} isActive={location.pathname == STRING_ROUTE_PROFESSIONS} index={3}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Schedule" icon={'📅'} isActive={location.pathname == STRING_ROUTE_HOME} index={1}
+                <NavBarItem title="Video" icon={'📅'} isActive={location.pathname == STRING_ROUTE_VIDEOS} index={4}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Settings" icon={'⚙️'} isActive={location.pathname == STRING_ROUTE_HOME} index={1}
+                <NavBarItem title="Comments" icon={'⚙️'} isActive={location.pathname == STRING_ROUTE_COMMENTS} index={5}
                             onClick={handleChangePage}/>
                 {/* <aside className="">
                     <nav>
@@ -102,7 +109,7 @@ export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
                 <span>
                     {user.email}
                 </span> */}
-                   <NavBarItem title="Logout" icon={<BoxArrowLeft/>} isActive={location.pathname == STRING_ROUTE_OUT} index={5}
+                   <NavBarItem title="Logout" icon={<BoxArrowLeft/>} isActive={location.pathname == STRING_ROUTE_OUT} index={6}
                             onClick={handleChangePage}/>
 
             </div>}

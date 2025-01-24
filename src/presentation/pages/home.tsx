@@ -14,8 +14,8 @@ function Home() {
 
             <Header></Header>
             </div>
-            <NavBar  user={({username: "Wilfried Fotie", password: "12345678", email: "wilfried.fotie@kamix.io"})} />
-            <Dashbord></Dashbord>
+            <NavBar  user={({name: "Wilfried Fotie", password: "12345678", email: "wilfried.fotie@kamix.io"})} />
+            {/* <Dashbord></Dashbord> */}
 
             <ErrorBoundary>
 

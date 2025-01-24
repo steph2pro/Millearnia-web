@@ -1,7 +1,7 @@
 const Dashbord = () => {
     return (
         <>
-            <div className="min-h-screen flex items-center justify-center  ml-60">
+            <div className="min-h-screen  ">
                 <div>
             <section className="mb-8">
           <h2 className="text-xl font-bold mb-4">My Progress</h2>
