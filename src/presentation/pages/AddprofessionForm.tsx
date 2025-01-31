@@ -9,13 +9,6 @@ import KeywordInput from "../components/KeyWordInput";
 const ProfessionForm = () => {
     const { register, handleSubmit, onSubmit, setValue, errors } = useProfessionForm();
   
-    // const onSubmit = (data) => {
-    //   console.log("Données soumises :", data);
-    //   alert("Profession ajoutée avec succès !"+ JSON.stringify(data, null, 2));
-    // };
-    // console.log("State initial:", register, setValue, errors);
-  
-    // Récupération des catégories via le hook
     const { catQuery } = useCategories();
     const { data: allCategories } = catQuery;
   

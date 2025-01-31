@@ -1,4 +1,4 @@
-import {BoxArrowLeft, HouseGear,} from "react-bootstrap-icons"
+import { BoxArrowLeft, HouseGear, Person, Book, Briefcase, CameraVideo, ChatDots } from "react-bootstrap-icons";
 import React, {PropsWithChildren, ReactNode} from "react"
 // import {UserPorps} from "../../../data/models";
 import {useLocation, useNavigate,} from "react-router-dom";
@@ -54,50 +54,31 @@ export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
             <div className="flex-1 max-sm:max-lg:flex max-sm:max-lg:justify-evenly sm:justify-evenly sm:flex lg:block">
 
                 <div className="text-center text-3xl text-green-950 mb-7 font-bold max-sm:max-lg:hidden">
-{/*                  
-                    <div className="mb-8">
-                    </div> */}
-                     📚 Millearnia 
+                <div className="flex flex-col items-center mb-6">
+                    <img 
+                    src="/assets/profile.png" 
+                    alt="Profile" 
+                    className="w-16 h-16 rounded-full mb-2 border border-gray-300"
+                    />
+                    <h2 className="text-lg font-semibold">Aster Seawalker</h2>
+                    <p className="text-sm text-gray-500">Computer Science</p>
                 </div>
-                
-
-                <NavBarItem title="Dashboard" icon={'📊'} isActive={location.pathname == STRING_ROUTE_DASHDORD} index={0}
+                </div>
+                <NavBarItem title="Dashboard" icon={<HouseGear />} isActive={location.pathname === STRING_ROUTE_DASHDORD} index={0}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Users" icon={'👤'} isActive={location.pathname == STRING_ROUTE_USERS} index={1}
+                <NavBarItem title="Users" icon={<Person />} isActive={location.pathname === STRING_ROUTE_USERS} index={1}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Courses" icon={'📘'} isActive={location.pathname == STRING_ROUTE_COURSES} index={2}
+                <NavBarItem title="Courses" icon={<Book />} isActive={location.pathname === STRING_ROUTE_COURSES} index={2}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Professions" icon={'💼'} isActive={location.pathname == STRING_ROUTE_PROFESSIONS} index={3}
+                <NavBarItem title="Professions" icon={<Briefcase />} isActive={location.pathname === STRING_ROUTE_PROFESSIONS} index={3}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Video" icon={'📅'} isActive={location.pathname == STRING_ROUTE_VIDEOS} index={4}
+                <NavBarItem title="Video" icon={<CameraVideo />} isActive={location.pathname === STRING_ROUTE_VIDEOS} index={4}
                             onClick={handleChangePage}/>
-                <NavBarItem title="Comments" icon={'⚙️'} isActive={location.pathname == STRING_ROUTE_COMMENTS} index={5}
+                <NavBarItem title="Comments" icon={<ChatDots />} isActive={location.pathname === STRING_ROUTE_COMMENTS} index={5}
                             onClick={handleChangePage}/>
-                {/* <aside className="">
-                    <nav>
-                    <ul className="space-y-6">
-                       
-                        <li className="flex items-center space-x-4 text-gray-600 hover:text-gray-900">
-                        <span>📅</span>
-                        <a href="#">Schedule</a>
-                        </li>
-                        <li className="flex items-center space-x-4 text-gray-600 hover:text-gray-900">
-                        <span>📘</span>
-                        <a href="#">Courses</a>
-                        </li>
-                        <li className="flex items-center space-x-4 text-gray-600 hover:text-gray-900">
-                        <span>✉️</span>
-                        <a href="#">Messages</a>
-                        </li>
-                        <li className="flex items-center space-x-4 text-gray-600 hover:text-gray-900">
-                        <span>⚙️</span>
-                        <a href="#">Settings</a>
-                        </li>
-                    </ul>
-                    </nav>
-                </aside> */}
-
-             
+                          
+            <NavBarItem title="Logout" icon={<BoxArrowLeft />} isActive={location.pathname === STRING_ROUTE_OUT} index={6}
+                            onClick={handleChangePage}/>  
 
             </div>
             {user && <div className="flex space-x-4 max-sm:max-lg:hidden sm:hidden lg:flex items-center py-4 mx-4">
@@ -109,10 +90,9 @@ export const NavBar: React.FC<{ user?: UserPorps }> = ({user}) => {
                 <span>
                     {user.email}
                 </span> */}
-                   <NavBarItem title="Logout" icon={<BoxArrowLeft/>} isActive={location.pathname == STRING_ROUTE_OUT} index={6}
-                            onClick={handleChangePage}/>
 
             </div>}
+            
 
         </div>
     )
@@ -127,7 +107,7 @@ export const NavBarItem: React.FC<PropsWithChildren<{
 }>> = ({icon, title, isActive = false, onClick, index}) => {
     return (
         <div onClick={() => onClick(index)}
-             className={`flex items-center max-sm:max-lg:justify-evenly sm:justify-evenly lg:justify-start  px-4 mx-2 my-5 py-3 space-x-4 text-gray-600 hover:text-gray-900 hover:cursor-pointer ${isActive ? "border-t-white border-r-0 border-b-white border-l-primaryColor border-4 p-4 " : null}`}>
+             className={`flex items-center max-sm:max-lg:justify-evenly sm:justify-evenly lg:justify-start  px-4 mx-2 my-5 py-3 space-x-4 text-gray-600 hover:text-gray-900 hover:cursor-pointer ${isActive ? "bg-primaryColor text-white rounded-xl" : null}`}>
 
             {icon}
             
