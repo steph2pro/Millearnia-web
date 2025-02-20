@@ -2,6 +2,7 @@ import { ProfessionRepository } from '../../domain/repositories/ProfessionReposi
 import ProfessionNetworkService from '../datasources/network/ProfessionNetworkService';
 import Profession from '../models/Profession';
 import ProfessionCategory from '../models/ProfessionCategory';
+import ProfessionCategoryRequest from '../models/ProfessionCategoryRequest';
 import ProfessionComment from '../models/ProfessionComment';
 import ProfessionRequest from '../models/ProfessionRequest';
 import ProfessionVideo from '../models/ProfessionVideo';
@@ -58,9 +59,24 @@ export default class ProfessionRepositoryImpl implements ProfessionRepository {
     }
 
 
-    async getCategories(): Promise<ProfessionCategory[]> {
-        return await this.dataSource.getCategories();
-    }
+    // async getCategories(): Promise<ProfessionCategory[]> {
+    //     return await this.dataSource.getCategories();
+    // }
 
+    async createProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory> {
+         return await this.dataSource.createProfessionCategory(professionCategory);
+    }
+    async getProfessionCategorys(): Promise<ProfessionCategory[]>{
+        return await this.dataSource.getProfessionCategorys();
+    }
+    async getProfessionCategoryById(professionCategoryId: number): Promise<ProfessionCategory>  {
+        return await this.dataSource.getProfessionCategoryById(professionCategoryId);
+    }
+    async updateProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory>{
+         return await this.dataSource.updateProfessionCategory(professionCategory);
+    }
+    async deleteProfessionCategory(professionCategoryId: number): Promise<string> {
+         return await this.dataSource.deleteProfessionCategory(professionCategoryId);
+    }
 
 }

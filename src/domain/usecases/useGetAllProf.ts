@@ -9,12 +9,14 @@ export const useGetAllProfessions = (repository: ProfessionRepositoryImpl) => {
     ["professions"], // Clé unique pour identifier cette requête
     async () => await repository.getProfessions(), 
     {
-      onSuccess: () => {
-        notify.success("Professions fetched successfully!");
-      },
-      onError: () => {
-        notify.error("Failed to fetch professions.");
-      },
+      // onSuccess: () => {
+      //   notify.success("Professions fetched successfully!");
+      //   const prof=repository.getProfessions();
+      //   console.log( prof )
+      // },
+      // onError: () => {
+      //   notify.error("Failed to fetch professions.");
+      // },
       staleTime: 1000 * 60 * 5, // Durée avant de marquer les données comme obsolètes (5 minutes)
     }
   );

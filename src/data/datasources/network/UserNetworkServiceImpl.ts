@@ -3,10 +3,11 @@ import wait from "../../../presentation/utils/wait";
 import {Http} from "../../../services/Http";
 import UserPorps from "../../models/User";
 import UserRequest from "../../models/UserRequest";
+import PaginatedResponse from "@/data/models/userResponse";
 
 export default class UserNetworkServiceImpl implements UserNetworkService {
     async login(identifier: string, password: string): Promise<UserPorps> {
-        const res = await Http.post<UserPorps>('/auth/login', { identifier, password });
+        const res = await Http.post<UserPorps>('/auth/loginAdmin', { identifier, password });
       
               return res.data;
     }
@@ -21,8 +22,12 @@ export default class UserNetworkServiceImpl implements UserNetworkService {
         const res = await Http.post<UserPorps>("user-store", user);
         return await res.data;
       }
-    async getUsers(): Promise<UserPorps[]> {
-        const res = await Http.get<UserPorps[]>("user-index");
+      async getUsers(page: number = 1, perPage?: number ): Promise<PaginatedResponse> {
+        const res = await Http.get<PaginatedResponse>(`user-index?page=${page}&perPage=${perPage}`);
+        return res.data;
+      }
+    async getUsersPaginate(page:number,perPage:number): Promise<PaginatedResponse> {
+        const res = await Http.get<PaginatedResponse>(`user-index?page=${page}&perPage=${perPage}`);
         return await res.data;
       }
       async getUserById(UserId: number): Promise<UserPorps> {

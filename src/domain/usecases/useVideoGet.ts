@@ -12,12 +12,12 @@ export const useGetVideoById = (
     ["video", professionVideoId], // Clé unique avec professionId
     async () => await repository.getProfessionVideoById(professionVideoId),
     {
-      onSuccess: () => {
-        notify.success(`Video  fetched successfully!`);
-      },
-      onError: () => {
-        notify.error("Failed to fetch Video.");
-      },
+      // onSuccess: () => {
+      //   notify.success(`Video  fetched successfully!`);
+      // },
+      // onError: () => {
+      //   notify.error("Failed to fetch Video.");
+      // },
       staleTime: 1000 * 60 * 5, // 5 minutes
     }
   );

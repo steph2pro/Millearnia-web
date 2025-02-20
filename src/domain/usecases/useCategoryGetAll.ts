@@ -7,14 +7,14 @@ export const useGetAllCategories = (repository: ProfessionRepositoryImpl) => {
 
   return useQuery(
     ["categories"], // Clé unique pour identifier cette requête
-    async () => await repository.getCategories(), 
+    async () => await repository.getProfessionCategorys(), 
     {
-      onSuccess: () => {
-        notify.success("Categories fetched successfully!");
-      },
-      onError: () => {
-        notify.error("Failed to fetch Categories.");
-      },
+      // onSuccess: () => {
+      //   notify.success("Categories fetched successfully!");
+      // },
+      // onError: () => {
+      //   notify.error("Failed to fetch Categories.");
+      // },
       staleTime: 1000 * 60 * 5, // Durée avant de marquer les données comme obsolètes (5 minutes)
     }
   );

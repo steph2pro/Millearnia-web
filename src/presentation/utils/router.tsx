@@ -1,11 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
-import Connexion from "../pages/Connexion.tsx";
-import Home from "../pages/home.tsx";
-import {STRING_ROUTE_COURSES, STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_LOGING, STRING_ROUTE_OUT, STRING_ROUTE_PROFESSIONS, STRING_ROUTE_USERS, STRING_ROUTE_PROFESSION_ADD, STRING_ROUTE_PROFESSION_UPDATE, STRING_ROUTE_PROFESSION_DELETE,STRING_ROUTE_VIDEOS,STRING_ROUTE_VIDEO_ADD,STRING_ROUTE_VIDEO_UPDATE,STRING_ROUTE_VIDEO_DELETE, STRING_ROUTE_COMMENTS, STRING_ROUTE_COMMENT_DELETE, STRING_ROUTE_USER_ADD, STRING_ROUTE_USER_UPDATE, STRING_ROUTE_USER_DELETE, STRING_ROUTE_COURSE_ADD, STRING_ROUTE_COURSE_UPDATE, STRING_ROUTE_COURSE_DELETE} from "./const";
-import Dashbord from "../pages/dashbord.tsx";
-import UserList from "../pages/userList.tsx";
-import CourseList from "../pages/courseList.tsx";
-import ProfessionList from "../pages/professionList.tsx";
+import {STRING_ROUTE_COURSES, STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_LOGING, STRING_ROUTE_OUT, STRING_ROUTE_PROFESSIONS, STRING_ROUTE_USERS, STRING_ROUTE_PROFESSION_ADD, STRING_ROUTE_PROFESSION_UPDATE, STRING_ROUTE_PROFESSION_DELETE,STRING_ROUTE_VIDEOS,STRING_ROUTE_VIDEO_ADD,STRING_ROUTE_VIDEO_UPDATE,STRING_ROUTE_VIDEO_DELETE, STRING_ROUTE_COMMENTS, STRING_ROUTE_COMMENT_DELETE, STRING_ROUTE_USER_ADD, STRING_ROUTE_USER_UPDATE, STRING_ROUTE_USER_DELETE, STRING_ROUTE_COURSE_ADD, STRING_ROUTE_COURSE_UPDATE, STRING_ROUTE_COURSE_DELETE, STRING_ROUTE_CATEGORIES, STRING_ROUTE_CATEGORY_ADD, STRING_ROUTE_CATEGORY_DELETE, STRING_ROUTE_CATEGORY_UPDATE} from "./const";
+
 import ProfessionForm from "../pages/AddprofessionForm";
 import EditProfession from "../pages/EditProfession.js";
 import DeleteProfession from "../pages/deleteProfession.js";
@@ -20,15 +15,26 @@ import UserEdit from "../pages/userEdit.js";
 import UserDelete from "../pages/useDelete.js";
 import CourseFormAdd from "../pages/courseFormAdd.js";
 import CourseDelete from "../pages/courseDelete.js";
+import LoginPage from "../pages/loginPage.js";
+import Home from "../pages/home";
+import Dashbord from "../pages/dashbord";
+import UserList from "../pages/userList";
+import CourseList from "../pages/courseList";
+import ProfessionList from "../pages/professionList";
+import { LogoutPage } from "../pages/logoutPage";
+import CategoryList from "../pages/categoryList";
+import CategoryFormAdd from "../pages/categoryFormAdd";
+import CategoryDelete from "../pages/categoryDelete";
+import CategoryEdit from "../pages/categoryEdit";
 
 const router = createBrowserRouter([
     {
         path: STRING_ROUTE_LOGING,
-        element: <Connexion/>,
+        element: <LoginPage/>,
     },
     {
         path: STRING_ROUTE_OUT,
-        element: <Connexion/>
+        element: <LogoutPage/>
     },
     {
         path: STRING_ROUTE_HOME,
@@ -110,6 +116,22 @@ const router = createBrowserRouter([
             {
                 path: STRING_ROUTE_COMMENT_DELETE,
                 element: <CommentDelete/>
+            },
+            {
+                path: STRING_ROUTE_CATEGORIES,
+                element: <CategoryList/>
+            },
+            {
+                path: STRING_ROUTE_CATEGORY_ADD,
+                element: <CategoryFormAdd/>
+            },
+            {
+                path: STRING_ROUTE_CATEGORY_DELETE,
+                element: <CategoryDelete/>
+            },
+            {
+                path: STRING_ROUTE_CATEGORY_UPDATE,
+                element: <CategoryEdit/>
             },
         ]
     }

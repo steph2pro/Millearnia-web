@@ -9,12 +9,12 @@ export const useGetAllVideos = (repository: ProfessionRepositoryImpl) => {
     ["videos"], // Clé unique pour identifier cette requête
     async () => await repository.getProfessionVideos(), 
     {
-      onSuccess: () => {
-        notify.success("videos fetched successfully!");
-      },
-      onError: () => {
-        notify.error("Failed to fetch videos.");
-      },
+      // onSuccess: () => {
+      //   notify.success("videos fetched successfully!");
+      // },
+      // onError: () => {
+      //   notify.error("Failed to fetch videos.");
+      // },
       staleTime: 1000 * 60 * 5, // Durée avant de marquer les données comme obsolètes (5 minutes)
     }
   );

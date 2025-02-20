@@ -6,7 +6,7 @@ function useProfessionController() {
     const getAllProf = useGetAllProfessions(
         new ProfessionRepositoryImpl(new ProfessionNetworkServiceImpl())
     );
-
+    console.log('toutes les professions '+getAllProf);
     return {
         profQuery: getAllProf,
     };

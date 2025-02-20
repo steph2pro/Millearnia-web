@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ProfessionVideo from '../../data/models/ProfessionVideo';
 import useSearch from '../hook/useSearch';
 import ProfessionsFilter from '../components/ProfessionFilter';
@@ -7,10 +7,12 @@ import useProfessionController from '../hook/useProfessionController';
 import useVideoGetAll from '../hook/useVideoGetAll';
 import { useNavigate } from 'react-router-dom';
 import { STRING_ROUTE_VIDEO_ADD } from '../utils/const';
+import { DataTablePagination } from '../components/data-table-pagination2'; // Importation du composant de pagination
+import { Button } from '../components/ui/button';
 
 const VideoList = () => {
   const navigate = useNavigate();
-  
+
   // Récupération des vidéos
   const { videoQuery } = useVideoGetAll();
   const { data: videos, isLoading, isError } = videoQuery;
@@ -22,6 +24,10 @@ const VideoList = () => {
 
   // Gestion du filtre de profession
   const [selectedProfession, setSelectedProfession] = useState<number | null>(null);
+
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
   // Gestion de la recherche avec le hook
   const { searchTerm, filteredItems: filteredVideos, handleSearchChange } = useSearch(
@@ -35,6 +41,16 @@ const VideoList = () => {
   const displayedVideos = selectedProfession
     ? filteredVideos.filter((video) => video.professionId === selectedProfession)
     : filteredVideos;
+
+  // Calculer le nombre total de vidéos affichées après filtrage
+  const totalVideos = displayedVideos.length;
+
+  // Pagination logique : slice des vidéos en fonction de la page et du nombre par page
+  const paginatedVideos = useMemo(() => {
+    const startIndex = (page - 1) * perPage;
+    const endIndex = startIndex + perPage;
+    return displayedVideos.slice(startIndex, endIndex);
+  }, [displayedVideos, page, perPage]);
 
   // Affichage pendant le chargement ou en cas d'erreur
   if (isLoading) return <Loader />;
@@ -55,21 +71,20 @@ const VideoList = () => {
               value={searchTerm}
               onChange={handleSearchChange}
               placeholder="Search"
-              className="px-3 py-1 text-sm border rounded-lg"
+              className=" text-sm border rounded-lg w-[300px] p-2"
             />
           </div>
         </div>
         <div className="flex justify-between m-5">
           <h3 className="mb-4 text-lg font-bold">Videos</h3>
-          <button
-            onClick={() => navigate(STRING_ROUTE_VIDEO_ADD)}
-            className="flex items-center justify-center bg-blue-500 text-white p-2 rounded-xl hover:bg-blue-600 focus:outline-none"
-          >
-            + Ajouter une vidéo
-          </button>
+          <Button className="ml-10 bg-primaryColor " onClick={() => navigate(STRING_ROUTE_VIDEO_ADD)}>
+              Ajouter une vidéo
+            </Button>
+            
         </div>
+
         {/* Tableau des vidéos */}
-        {displayedVideos.length > 0 ? (
+        {paginatedVideos.length > 0 ? (
           <table className="w-full text-left table-auto">
             <thead className="bg-gray-100">
               <tr>
@@ -80,18 +95,18 @@ const VideoList = () => {
               </tr>
             </thead>
             <tbody>
-              {displayedVideos.map((video: ProfessionVideo) => (
+              {paginatedVideos.map((video: ProfessionVideo) => (
                 <tr key={video.id} className="border-t">
                   <td className="px-4 py-2">
                     <img
                       src={video.thumbnail}
                       alt="User"
-                      className="w-10 h-10 rounded-full mr-5"
+                      className="w-10 h-10 mr-5 rounded-full"
                     />
                   </td>
                   <td className="px-4 py-2">{video.profession.name}</td>
                   <td className="px-4 py-2">{video.youtubeId}</td>
-                  <td className="px-4 py-2 flex justify-between items-center">
+                  <td className="flex items-center justify-between px-4 py-2">
                     <button
                       onClick={() => navigate(`/videoEdit/${video.id}`)}
                       className="text-blue-500 hover:text-blue-700"
@@ -112,6 +127,15 @@ const VideoList = () => {
         ) : (
           <div className="text-center text-gray-500">Aucun élément trouvé.</div>
         )}
+
+        {/* Pagination */}
+        <DataTablePagination
+          count={totalVideos}
+          page={page}
+          per_page={perPage}
+          onPageChange={setPage}
+          onRowsPerPageChange={setPerPage}
+        />
       </div>
     </div>
   );

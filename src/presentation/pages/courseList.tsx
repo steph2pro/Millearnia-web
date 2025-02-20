@@ -1,18 +1,25 @@
-import React, { useEffect } from 'react';
-import useCourseGetAll from '../hook/useCourseGetAll';
-import { Loader } from '../components/Loader';
-import { STRING_ROUTE_COURSE_ADD } from '../utils/const';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '../components/Loader';
+import useCourseGetAll from '../hook/useCourseGetAll';
+import { STRING_ROUTE_COURSE_ADD } from '../utils/const';
+import DataTable from "../components/data-table"; 
+import { DataTablePagination } from '../components/data-table-pagination2'; 
+import Course from '@/data/models/Cours';
+import { Button } from '../components/ui/button';
+
 const CourseList = () => {
   const navigate = useNavigate();
   const { CourseQuery } = useCourseGetAll();
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
   // Vérifier si les données doivent être rafraîchies
-  useEffect(() => {
-    if (!CourseQuery.isFetching && !CourseQuery.isSuccess) {
-      CourseQuery.refetch();
-    }
-  }, [CourseQuery]);
+  // useEffect(() => {
+  //   if (!CourseQuery.isFetching && !CourseQuery.isSuccess) {
+  //     CourseQuery.refetch();
+  //   }
+  // }, [CourseQuery]);
 
   // Gestion des états
   if (CourseQuery.isLoading) {
@@ -29,69 +36,93 @@ const CourseList = () => {
 
   const courses = CourseQuery.data || [];
 
+  // Fonction pour tronquer le texte à 20 caractères
+  const truncateText = (text) => {
+    return text.length > 20 ? text.slice(0, 20) + '...' : text;
+  };
+
+  // Définir les colonnes pour DataTable en utilisant useMemo
+  const columns = [
+   
+    {
+      header: 'Title',
+      accessorKey: 'title',
+    },
+    {
+      header: 'Description',
+      accessorKey: 'description',
+      cell: (info) => truncateText(info.getValue()),
+    },
+    {
+      header: 'Content',
+      accessorKey: 'contenu',
+      cell: (info) => truncateText(info.getValue()),
+    },
+    {
+      header: 'Duration',
+      accessorKey: 'duration',
+      cell: (info) => `${info.getValue()} hours`,
+    },
+    {
+      header: 'Options',
+      accessorKey: 'options',
+      cell: (info) => (
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => navigate(`/courseEdit/${info.row.original.id}`)}
+            className="text-blue-500 hover:text-blue-700"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => navigate(`/courseDelete/${info.row.original.id}`)}
+            className="ml-2 text-blue-500 hover:text-red-700"
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  // Gestion de la pagination (filtrage de pages)
+  const pagedData = courses.slice((page - 1) * perPage, page * perPage);
+  
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="min-h-screen p-6 bg-gray-100">
       {/* Affichage des statistiques */}
       <div className="grid grid-cols-4 gap-6 mb-6">
-        <div className="bg-white p-4 rounded-lg shadow">
+        <div className="p-4 bg-white rounded-lg shadow">
           <h4 className="text-gray-500">Total Courses</h4>
           <h2 className="text-xl font-bold">{courses.length}</h2>
-          <p className="text-green-500 text-sm">Data fetched successfully</p>
         </div>
       </div>
 
-      {/* Tableau des cours */}
-      <div className="bg-white rounded-lg shadow p-4">
+      {/* Tableau des cours avec DataTable */}
+      <div className="p-4 bg-white rounded-lg shadow">
         <div className="flex items-center justify-between mb-4">
+          <h3 className="mb-4 text-lg font-bold">Course</h3>
           
+          <Button className="ml-10 bg-primaryColor " onClick={() => navigate(STRING_ROUTE_COURSE_ADD)}>
+              Ajouter un cours
+            </Button>
           
-                  <h3 className="mb-4 text-lg font-bold">Course</h3>
-                  <button
-                    onClick={() => navigate(STRING_ROUTE_COURSE_ADD)}
-                    className="flex items-center justify-center bg-blue-500 text-white p-2 rounded-xl hover:bg-blue-600 focus:outline-none"
-                  >
-                    + Ajouter une vidéo
-                  </button>
-                  
         </div>
-        <table className="table-auto w-full text-left">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Title</th>
-              <th className="px-4 py-2">Description</th>
-              <th className="px-4 py-2">Content</th>
-              <th className="px-4 py-2">Duration</th>
-              <th className="px-4 py-2">Options</th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map((course) => (
-              <tr key={course.id} className="border-t">
-                <td className="px-4 py-2">{course.id}</td>
-                <td className="px-4 py-2">{course.title}</td>
-                <td className="px-4 py-2">{course.description}</td>
-                <td className="px-4 py-2">{course.contenu}</td>
-                <td className="px-4 py-2">{course.duration} hours</td>
-                
-                <td className="px-4 py-2 flex justify-between items-center">
-                    <button
-                      onClick={() => navigate(`/courseEdit/${course.id}`)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => navigate(`/courseDelete/${course.id}`)}
-                      className="text-blue-500 hover:text-blue-700 ml-2"
-                    >
-                      Delete
-                    </button>
-                  </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+        <DataTable
+          columns={columns}
+          data={pagedData}
+        />
+
+        {/* Pagination */}
+        <DataTablePagination
+          count={courses.length}
+          page={page}
+          per_page={perPage}
+          onPageChange={setPage}
+          onRowsPerPageChange={setPerPage}
+        />
       </div>
     </div>
   );

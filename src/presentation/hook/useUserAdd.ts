@@ -69,6 +69,7 @@ const useUserAdd = () => {
     setValue,
     onSubmit,
     errors,
+    isCreating: createUser.isLoading,
   };
 };
 

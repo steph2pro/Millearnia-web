@@ -20,3 +20,7 @@ export const STRING_ROUTE_COURSES = '/courses';
 export const STRING_ROUTE_COURSE_ADD = '/courseAdd';
 export const STRING_ROUTE_COURSE_UPDATE = '/courseEdit/:id';
 export const STRING_ROUTE_COURSE_DELETE = '/courseDelete/:id';
+export const STRING_ROUTE_CATEGORIES = '/categories';
+export const STRING_ROUTE_CATEGORY_ADD = '/categoryAdd';
+export const STRING_ROUTE_CATEGORY_UPDATE = '/categoryEdit/:id';
+export const STRING_ROUTE_CATEGORY_DELETE = '/categoryDelete/:id';

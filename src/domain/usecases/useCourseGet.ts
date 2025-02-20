@@ -12,12 +12,12 @@ CourseId: number,
     ["Course", CourseId], // Clé unique avec professionId
     async () => await repository.getCourseById(CourseId),
     {
-      onSuccess: () => {
-        notify.success(`Course  fetched successfully!`);
-      },
-      onError: () => {
-        notify.error("Failed to fetch Course.");
-      },
+      // onSuccess: () => {
+      //   notify.success(`Course  fetched successfully!`);
+      // },
+      // onError: () => {
+      //   notify.error("Failed to fetch Course.");
+      // },
       staleTime: 1000 * 60 * 5, // 5 minutes
     }
   );

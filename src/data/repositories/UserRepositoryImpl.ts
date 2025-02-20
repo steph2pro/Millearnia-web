@@ -2,6 +2,7 @@ import {UserRepository} from "../../domain/repositories/UserRepository";
 import UserPorps from "../models/User";
 import UserNetworkService from "../datasources/network/UserNetworkService";
 import UserRequest from "../models/UserRequest";
+import PaginatedResponse from "../models/userResponse";
 
 export default class UserRepositoryImpl implements UserRepository {
 
@@ -17,8 +18,11 @@ export default class UserRepositoryImpl implements UserRepository {
     async createUser(user: UserRequest): Promise<UserPorps>  {
         return await this.dataSource.createUser(user);
     }
-    async getUsers(): Promise<UserPorps[]>  {
-        return await this.dataSource.getUsers();
+    async getUsers(page?: number, perPage?: number): Promise<PaginatedResponse>  {
+        return await this.dataSource.getUsers(page,perPage);
+    }
+    async getUsersPaginate(page:number,perPage:number): Promise<PaginatedResponse> {
+        return await this.dataSource.getUsersPaginate(page,perPage);
     }
 
     async getUserById(UserId: number): Promise<UserPorps> {

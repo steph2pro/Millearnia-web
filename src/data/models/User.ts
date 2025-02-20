@@ -4,6 +4,7 @@ type UserPorps = {
   email :        string,
   phone :        string,   
   password?  :    string,
+  profil?  :    string,
   role:          string,
   status:        string,
   createdAt:    string, 
@@ -11,7 +12,7 @@ type UserPorps = {
   refreshToken?:  string[],  
   professions? :  string[],
   comments?  : string[],
-
+  access_token?: string,
 }
 
 export default UserPorps;

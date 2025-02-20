@@ -1,3 +1,4 @@
+import ProfessionCategoryRequest from '@/data/models/ProfessionCategoryRequest';
 import Profession from '../../models/Profession';
 import ProfessionCategory from '../../models/ProfessionCategory';
 import ProfessionComment from '../../models/ProfessionComment';
@@ -21,5 +22,10 @@ export default interface ProfessionNetworkService{
     getProfessionComments(): Promise<ProfessionComment[]>
     deleteProfessionComment(professionCommentId: number): Promise<string>
 
-    getCategories(): Promise<ProfessionCategory[]>;
+    // getCategories(): Promise<ProfessionCategory[]>;
+    createProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory>
+    getProfessionCategorys(): Promise<ProfessionCategory[]>
+    getProfessionCategoryById(professionCategoryId: number): Promise<ProfessionCategory>
+    updateProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory>
+    deleteProfessionCategory(professionCategoryId: number): Promise<string> 
 }

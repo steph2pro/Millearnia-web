@@ -9,6 +9,7 @@ import UserPorps from "./User";
     userId: number;
     tabs: string[];
     categoryId: number;
+    thumbnail: string;
     category: ProfessionCategory;  // Typage de la catégorie associée
     // user: UserPorps;  // Typage de l'utilisateur associé
     videos: ProfessionVideo[];  // Liste des vidéos associées

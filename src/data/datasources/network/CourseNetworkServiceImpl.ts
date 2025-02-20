@@ -12,8 +12,8 @@ export default class CourseNetworkServiceImpl implements CourseNetworkService {
         return await res.data;
       }
     async getCourses(): Promise<Course[]> {
-        const res = await Http.get<Course[]>("course-index");
-        return await res.data;
+        const res = await Http.get<{courses  : Course[]}>("course-index");
+        return await res.data.courses;
       }
       async getCourseById(courseId: number): Promise<Course> {
         const res = await Http.get<Course>(`course-show/${courseId}`);
