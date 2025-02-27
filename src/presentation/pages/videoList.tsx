@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { STRING_ROUTE_VIDEO_ADD } from '../utils/const';
 import { DataTablePagination } from '../components/data-table-pagination2'; // Importation du composant de pagination
 import { Button } from '../components/ui/button';
+import { Pencil, Trash } from 'lucide-react';
+import RetryComponent from '../components/RetryComponent';
 
 const VideoList = () => {
   const navigate = useNavigate();
@@ -54,7 +56,11 @@ const VideoList = () => {
 
   // Affichage pendant le chargement ou en cas d'erreur
   if (isLoading) return <Loader />;
-  if (isError) return <div>Error fetching video.</div>;
+  
+  if (isError) {
+    return <RetryComponent onRetry={videoQuery.refetch} />;
+  }
+
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
@@ -89,6 +95,7 @@ const VideoList = () => {
             <thead className="bg-gray-100">
               <tr>
                 <th className="px-4 py-2">Image</th>
+                <th className="px-4 py-2">Title</th>
                 <th className="px-4 py-2">Profession</th>
                 <th className="px-4 py-2">Video ID</th>
                 <th className="px-4 py-2">Options</th>
@@ -104,21 +111,24 @@ const VideoList = () => {
                       className="w-10 h-10 mr-5 rounded-full"
                     />
                   </td>
+                  <td className="px-4 py-2">{video.title}</td>
                   <td className="px-4 py-2">{video.profession.name}</td>
                   <td className="px-4 py-2">{video.youtubeId}</td>
                   <td className="flex items-center justify-between px-4 py-2">
-                    <button
-                      onClick={() => navigate(`/videoEdit/${video.id}`)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => navigate(`/videoDelete/${video.id}`)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex space-x-2">
+                      {/* Bouton Modifier */}
+                      <Button variant="outline" size="icon"
+                        onClick={() => navigate(`/videoEdit/${video.id}`)} >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+
+                      {/* Bouton Supprimer */}
+                      <Button variant="destructive" size="icon"
+                        onClick={() => navigate(`/videoDelete/${video.id}`)}>
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </div>
+                   
                   </td>
                 </tr>
               ))}

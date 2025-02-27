@@ -42,7 +42,7 @@ export default function Home() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">bienvenue sur Millearnia</BreadcrumbLink>
+                  <BreadcrumbLink href="#">Bienvenue sur Millearnia</BreadcrumbLink>
                 </BreadcrumbItem>
                 {/* <BreadcrumbSeparator className="hidden md:block" /> */}
                 <BreadcrumbItem>
@@ -57,7 +57,7 @@ export default function Home() {
           <Outlet />
           <div className="lg:ml-[20vw] sm:p-4 max-sm:max-lg:overflow-y-scroll lg:max-w-[80vw] flex-1"></div>
         </ErrorBoundary>
-        <Dashboard></Dashboard>
+        {/* <Dashboard></Dashboard> */}
 
         {/* <div className="flex flex-col flex-1 gap-4 p-4 pt-0">
           <div className="grid gap-4 auto-rows-min md:grid-cols-3">

@@ -8,7 +8,7 @@ import ProfessionVideoRequest from '../../models/ProfessionVideoRequest';
 
 export default interface ProfessionNetworkService{
     getProfessions(): Promise<Profession[]>;
-    createtProfessions(name: string, userId: number,categoryId: number,tabs: string[]): Promise<Profession>;
+    createtProfessions(ProfessionRequest): Promise<Profession>;
     getProfessionById(professionId: number): Promise<Profession>;
     updateProfession(profession: ProfessionRequest): Promise<Profession>;
     deleteProfession(professionId: number): Promise<string>;

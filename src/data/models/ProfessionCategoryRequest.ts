@@ -1,6 +1,6 @@
 type ProfessionCategoryRequest ={
     id: number;
     title: string;
-    icon: string;  
+    icon: File;  
 };
 export default ProfessionCategoryRequest;

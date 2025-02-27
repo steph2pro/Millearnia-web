@@ -1,6 +1,8 @@
 
 import { Loader } from "../components/Loader";
+import RetryComponent from "../components/RetryComponent";
 import { Card, CardContent } from "../components/ui/card";
+import useCourseGetAll from "../hook/useCourseGetAll";
 import useProfessionController from "../hook/useProfessionController";
 import useVideoGetAll from "../hook/useVideoGetAll";
 
@@ -14,13 +16,20 @@ export default function Dashboard() {
   const { videoQuery } = useVideoGetAll();
   const { data: allVideos, isLoading: isLoadingVid, isError: isErrorVid } = videoQuery;
   const videos = allVideos || [];
+  // Récupération des courses
+  const { CourseQuery } = useCourseGetAll();
+  const { data: allCourses, isLoading: isLoadingCourse, isError: isErrorCourse } = CourseQuery;
+  const courses = allCourses || [];
 
   // Affichage du loader si une des requêtes est en cours
-  if (isLoadingProf || isLoadingVid) return <Loader />;
+  if (isLoadingProf || isLoadingVid ||isLoadingCourse ) return <Loader />;
   
   // Affichage d'un message d'erreur en cas de problème
   if (isErrorProf || isErrorVid) return <div>Erreur lors de la récupération des données.</div>;
-
+  
+  if (isErrorProf || isErrorVid || isErrorCourse) {
+    return <RetryComponent onRetry={videoQuery.refetch} />;
+  }
   return (
     <div className="p-6">
       {/* Liste des professions */}
@@ -67,6 +76,30 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+      {/* Liste des cours */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold">Liste des Cours</h2>
+      </div>
+      <div className="overflow-x-auto">
+        <div className="flex space-x-4">
+          {courses.map((course) => (
+            <Card key={course.id} className="flex-shrink-0 w-64">
+              <div className="overflow-hidden rounded-t-lg">
+                <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="object-cover w-full h-48 transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-semibold">{course.title}</h3>
+                <p className="text-sm text-gray-500">{course.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }

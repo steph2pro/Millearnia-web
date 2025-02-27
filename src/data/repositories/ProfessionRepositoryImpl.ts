@@ -20,8 +20,8 @@ export default class ProfessionRepositoryImpl implements ProfessionRepository {
     async getProfessions(): Promise<Profession[]> {
         return await this.dataSource.getProfessions();
     }
-    async createtProfessions(name: string, userId: number,categoryId: number,tabs: string[]): Promise<Profession> {
-         return await this.dataSource.createtProfessions(name,userId,categoryId,tabs);
+    async createtProfessions(ProfessionRequest): Promise<Profession> {
+         return await this.dataSource.createtProfessions(ProfessionRequest);
     }
     async getProfessionById(professionId: number): Promise<Profession> {
         return await this.dataSource.getProfessionById(professionId);

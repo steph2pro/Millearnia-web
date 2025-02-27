@@ -1,8 +1,9 @@
  type ProfessionRequest ={
     professionId: number; 
-    name: string;         // Nom de la profession
+    name: string; 
+    thumbnail: File;
     userId: number;       // ID de l'utilisateur associé
     categoryId: number;   // ID de la catégorie associée
-    tabs: string[];       // Liste des onglets ou catégories liées à la profession
+    interests: number[];       
 };
 export default ProfessionRequest;

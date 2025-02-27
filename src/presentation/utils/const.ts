@@ -24,3 +24,7 @@ export const STRING_ROUTE_CATEGORIES = '/categories';
 export const STRING_ROUTE_CATEGORY_ADD = '/categoryAdd';
 export const STRING_ROUTE_CATEGORY_UPDATE = '/categoryEdit/:id';
 export const STRING_ROUTE_CATEGORY_DELETE = '/categoryDelete/:id';
+export const STRING_ROUTE_INTERESTS = '/interests';
+export const STRING_ROUTE_INTEREST_ADD = '/interestAdd';
+export const STRING_ROUTE_INTEREST_UPDATE = '/interestEdit/:id';
+export const STRING_ROUTE_INTEREST_DELETE = '/interestDelete/:id';

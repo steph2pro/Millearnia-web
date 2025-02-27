@@ -17,10 +17,10 @@ const useVideoUpdate = () => {
 
   // Schéma de validation Yup
   const schema = Yup.object().shape({
-    thumbnail: Yup.string()
-      .required("Le lien de la lien de l'image de la video est requis"),
-      youtubeId: Yup.string()
-      .required("L'ID de la video sur youtube est requis")
+       title: Yup.string()
+         .required("Le titre de la video est requis"),
+         youtubeId: Yup.string()
+         .required("L'ID de la video sur youtube est requis")
   });
 
   // Initialisation de react-hook-form
@@ -41,19 +41,8 @@ const useVideoUpdate = () => {
     console.log(data)
 
     try {
-        const id=data.id;
-        const professionId = parseInt(data.professionId, 10);
-  
-      // Vérification que les conversions sont valides
-      if (isNaN(professionId) ) {
-        console.error(' professionId invalide');
-        return;
-      }
       await updateProf.mutateAsync({
-        // professionId: initialData.professionId, // ID de la profession à mettre à jour
-        id,
         ...data,
-        professionId,
       });
 
       // Navigation après mise à jour réussie

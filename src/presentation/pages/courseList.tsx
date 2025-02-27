@@ -7,6 +7,8 @@ import DataTable from "../components/data-table";
 import { DataTablePagination } from '../components/data-table-pagination2'; 
 import Course from '@/data/models/Cours';
 import { Button } from '../components/ui/button';
+import { Pencil, Trash } from 'lucide-react';
+import RetryComponent from '../components/RetryComponent';
 
 const CourseList = () => {
   const navigate = useNavigate();
@@ -26,13 +28,10 @@ const CourseList = () => {
     return <Loader />;
   }
 
-  if (CourseQuery.isError) {
-    return (
-      <div className="p-6 text-red-500">
-        Error: impossible de charger les cours
-      </div>
-    );
+   if (CourseQuery.error) {
+    return <RetryComponent onRetry={CourseQuery.refetch} />;
   }
+
 
   const courses = CourseQuery.data || [];
 
@@ -68,18 +67,20 @@ const CourseList = () => {
       accessorKey: 'options',
       cell: (info) => (
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => navigate(`/courseEdit/${info.row.original.id}`)}
-            className="text-blue-500 hover:text-blue-700"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => navigate(`/courseDelete/${info.row.original.id}`)}
-            className="ml-2 text-blue-500 hover:text-red-700"
-          >
-            Delete
-          </button>
+                    <div className="flex space-x-2">
+                      {/* Bouton Modifier */}
+                      <Button variant="outline" size="icon"
+                          onClick={() => navigate(`/courseEdit/${info.row.original.id}`)} >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+  
+                        {/* Bouton Supprimer */}
+                        <Button variant="destructive" size="icon"
+                          onClick={() => navigate(`/courseDelete/${info.row.original.id}`)}>
+                          <Trash className="w-4 h-4" />
+                        </Button>
+                      </div>
+          
         </div>
       ),
     },

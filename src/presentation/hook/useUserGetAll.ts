@@ -5,7 +5,7 @@ import { useGetAllUsers } from "../../domain/usecases/useUserGetAll";
 
 function useUserGetAll(page: number) {
     // const [page, setPage] = useState(1);
-    const perPage:number = 2; // Nombre d'éléments par page
+    const perPage:number = 10; // Nombre d'éléments par page
     
     const userQuery = useGetAllUsers(
         new UserRepositoryImpl(new UserNetworkServiceImpl()),

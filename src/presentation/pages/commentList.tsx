@@ -8,6 +8,10 @@ import useCommentGetAll from '../hook/useCommentGetAll';
 import useVideoGetAll from '../hook/useVideoGetAll';
 import { useNavigate } from 'react-router-dom';
 import {DataTablePagination} from '../components/data-table-pagination2'; // Import the pagination component
+import { Button } from '../components/ui/button';
+import { Pencil } from 'react-bootstrap-icons';
+import { Trash } from 'lucide-react';
+import RetryComponent from '../components/RetryComponent';
 
 const CommentList = () => {
   const navigate = useNavigate();
@@ -46,7 +50,9 @@ const CommentList = () => {
 
   // Affichage pendant le chargement ou en cas d'erreur
   if (isLoading) return <Loader />;
-  if (isError) return <div>Erreur lors de la récupération des commentaires.</div>;
+  if (isError) {
+    return <RetryComponent onRetry={commentsQuery.refetch} />;
+  }
 
   // Handle page change
   const handlePageChange = (newPage: number) => {
@@ -145,18 +151,19 @@ const CommentList = () => {
                     <td className="px-4 py-2">{comment.professionVideoId || 'N/A'}</td>
                     <td className="px-4 py-2">{comment.content}</td>
                     <td className="px-4 py-2">
-                      <button
-                        onClick={() => navigate(`/commentEdit/${comment.id}`)}
-                        className="mr-4 text-blue-500 hover:text-blue-700"
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        onClick={() => navigate(`/commentDelete/${comment.id}`)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        Supprimer
-                      </button>
+                    <div className="flex space-x-2">
+                      {/* Bouton Modifier */}
+                      <Button variant="outline" size="icon"
+                          onClick={() => navigate(`/commentEdit/${comment.id}`)} >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+  
+                        {/* Bouton Supprimer */}
+                        <Button variant="destructive" size="icon"
+                          onClick={() => navigate(`/commentDelete/${comment.id}`)}>
+                          <Trash className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))

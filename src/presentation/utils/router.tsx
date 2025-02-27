@@ -1,5 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
-import {STRING_ROUTE_COURSES, STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_LOGING, STRING_ROUTE_OUT, STRING_ROUTE_PROFESSIONS, STRING_ROUTE_USERS, STRING_ROUTE_PROFESSION_ADD, STRING_ROUTE_PROFESSION_UPDATE, STRING_ROUTE_PROFESSION_DELETE,STRING_ROUTE_VIDEOS,STRING_ROUTE_VIDEO_ADD,STRING_ROUTE_VIDEO_UPDATE,STRING_ROUTE_VIDEO_DELETE, STRING_ROUTE_COMMENTS, STRING_ROUTE_COMMENT_DELETE, STRING_ROUTE_USER_ADD, STRING_ROUTE_USER_UPDATE, STRING_ROUTE_USER_DELETE, STRING_ROUTE_COURSE_ADD, STRING_ROUTE_COURSE_UPDATE, STRING_ROUTE_COURSE_DELETE, STRING_ROUTE_CATEGORIES, STRING_ROUTE_CATEGORY_ADD, STRING_ROUTE_CATEGORY_DELETE, STRING_ROUTE_CATEGORY_UPDATE} from "./const";
+import {STRING_ROUTE_COURSES, STRING_ROUTE_DASHDORD, STRING_ROUTE_HOME, STRING_ROUTE_LOGING, STRING_ROUTE_OUT, STRING_ROUTE_PROFESSIONS, STRING_ROUTE_USERS, STRING_ROUTE_PROFESSION_ADD, STRING_ROUTE_PROFESSION_UPDATE, STRING_ROUTE_PROFESSION_DELETE,STRING_ROUTE_VIDEOS,STRING_ROUTE_VIDEO_ADD,STRING_ROUTE_VIDEO_UPDATE,STRING_ROUTE_VIDEO_DELETE, STRING_ROUTE_COMMENTS, STRING_ROUTE_COMMENT_DELETE, STRING_ROUTE_USER_ADD, STRING_ROUTE_USER_UPDATE, STRING_ROUTE_USER_DELETE, STRING_ROUTE_COURSE_ADD, STRING_ROUTE_COURSE_UPDATE, STRING_ROUTE_COURSE_DELETE, STRING_ROUTE_CATEGORIES, STRING_ROUTE_CATEGORY_ADD, STRING_ROUTE_CATEGORY_DELETE, STRING_ROUTE_CATEGORY_UPDATE, STRING_ROUTE_INTERESTS, STRING_ROUTE_INTEREST_ADD, STRING_ROUTE_INTEREST_UPDATE, STRING_ROUTE_INTEREST_DELETE} from "./const";
 
 import ProfessionForm from "../pages/AddprofessionForm";
 import EditProfession from "../pages/EditProfession.js";
@@ -26,6 +26,10 @@ import CategoryList from "../pages/categoryList";
 import CategoryFormAdd from "../pages/categoryFormAdd";
 import CategoryDelete from "../pages/categoryDelete";
 import CategoryEdit from "../pages/categoryEdit";
+import InterestList from "../pages/interestList";
+import InterestFormAdd from "../pages/interestFormAdd";
+import InterestEdit from "../pages/interestEdit";
+import InterestDelete from "../pages/interestDelete";
 
 const router = createBrowserRouter([
     {
@@ -42,8 +46,9 @@ const router = createBrowserRouter([
         children: [
            
             {
-                path: STRING_ROUTE_DASHDORD,
-                element: <Dashbord/>
+                index: true,
+                // path: STRING_ROUTE_DASHDORD,
+                element: <Dashbord/>,
             },
             {
                 path: STRING_ROUTE_USERS,
@@ -132,6 +137,23 @@ const router = createBrowserRouter([
             {
                 path: STRING_ROUTE_CATEGORY_UPDATE,
                 element: <CategoryEdit/>
+            },
+            
+            {
+                path: STRING_ROUTE_INTERESTS,
+                element: <InterestList/>
+            },
+            {
+                path: STRING_ROUTE_INTEREST_ADD,
+                element: <InterestFormAdd/>
+            },
+            {
+                path: STRING_ROUTE_INTEREST_DELETE,
+                element: <InterestDelete/>
+            },
+            {
+                path: STRING_ROUTE_INTEREST_UPDATE,
+                element: <InterestEdit/>
             },
         ]
     }

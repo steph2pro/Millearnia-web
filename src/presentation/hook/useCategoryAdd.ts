@@ -15,8 +15,7 @@ const useCategoryAdd = () => {
 
   // Schéma de validation Yup
   const schema = Yup.object().shape({
-      icon: Yup.string()
-        .required("Le lien de la lien de l'image de la Category est requis"),
+      
       title: Yup.string()
         .required("Le titre de la Category  est requis")
    });

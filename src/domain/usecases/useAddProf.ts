@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import ProfessionRepositoryImpl from "../../data/repositories/ProfessionRepositoryImpl";
 import Profession from "../../data/models/Profession";
 import { useNotification } from "../../services/useNotification";
+import ProfessionRequest from '../../data/models/ProfessionRequest';
 
 interface AddProfessionParams {
   name: string;
@@ -14,9 +15,9 @@ export const useAddProf = (repository: ProfessionRepositoryImpl) => {
   const notify = useNotification();
 
   return useMutation<Profession, Error, AddProfessionParams>(
-    async ({ name, userId, categoryId, tabs }) => {
+    async (ProfessionRequest) => {
       // Appelle la méthode pour créer une profession via le repository
-      return await repository.createtProfessions(name, userId, categoryId, tabs);
+      return await repository.createtProfessions(ProfessionRequest);
     },
     {
       onSuccess: () => {

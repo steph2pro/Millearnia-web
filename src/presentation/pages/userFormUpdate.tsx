@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/Input";
 import useUserUpdate from "../hook/useUserUpdate";
 import { Button } from "../components/ui/button";
@@ -6,6 +6,7 @@ import { Label } from "../components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { useNavigate } from "react-router-dom";
 import { STRING_ROUTE_USERS } from "../utils/const";
+import { ImageIcon, X } from "lucide-react";
 
 const UserFormUpdate = ({ userData }) => {
   
@@ -22,9 +23,31 @@ const UserFormUpdate = ({ userData }) => {
       setValue("password", ""); // Laisser le mot de passe vide pour éviter de l'afficher
       setValue("role", userData.role);
       setValue("id", userData.id);
+      if (userData.profil) {
+        setPreview(userData.profil);  // Use URL or base64 for preview
+      }
     }
   }, [userData, setValue]);
-
+  
+        const [profil, setProfil] = useState<File | null>(null);
+          const [preview, setPreview] = useState<string | null>(null);
+        
+        const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files?.[0];
+            if (file) {
+              setProfil(file);
+              setPreview(URL.createObjectURL(file));
+              setValue("profil", file);
+            }
+          };
+        
+          const removeImage = () => {
+            setProfil(null);
+            setPreview(null);
+            setValue("profil", null);
+          };
+    
+  
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
@@ -86,13 +109,34 @@ const UserFormUpdate = ({ userData }) => {
                     <SelectValue placeholder="Sélectionnez un rôle" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="admin" >Admin</SelectItem>
                     <SelectItem value="user">User</SelectItem>
                     <SelectItem value="mentor">Mentor</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.role?.message && <p className="text-sm text-red-500">{errors.role.message}</p>}
               </div>
+              <div className="mb-4">
+                <Label>Profil  de l'utilisateur </Label>
+                <div className="flex flex-col items-center justify-center w-full p-4 border border-gray-300 rounded-lg">
+                  {preview ? (
+                    <div className="relative w-32 h-32">
+                      <img src={preview} alt="Preview" className="object-cover w-full h-full rounded-md" />
+                      <button onClick={removeImage} className="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center cursor-pointer">
+                      <ImageIcon className="w-12 h-12 text-gray-400" />
+                      <span className="text-sm text-gray-600">Choisir une image</span>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                    </label>
+                  )}
+                </div>
+                {errors.profil?.message && <p className="text-sm text-red-500">{String(errors.profil.message)}</p>}
+              </div>
+
 
               <Button type="submit" className="w-full" disabled={isUpdating}>
               {isUpdating ? "Mise à jour en cours..." : "Mettre à jour"}

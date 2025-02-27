@@ -60,9 +60,25 @@ export function NavMain({
                     tooltip={item.title}
                     className={isActive ? "bg-gray-200 text-black" : ""}
                   >
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                    <ChevronRight className={`ml-auto transition-transform duration-200 ${isActive ? "rotate-90" : ""}`} />
+                     {item.url != "#" ? (
+                      <>
+                        {item.icon && <item.icon />}
+                        <a href={item.url} onClick={()=>navigate(item.url)}>
+                            
+                          <span>{item.title}</span>
+                        </a>
+                      </>
+                      
+                        
+                      ) : (
+                        <>
+                        {item.icon && <item.icon />}
+                        <span>{item.title}</span>
+                        <ChevronRight className={`ml-auto transition-transform duration-200 ${isActive ? "rotate-90" : ""}`} />
+                        </>
+                      )}
+                   
+                    
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>

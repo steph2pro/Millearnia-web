@@ -4,7 +4,10 @@ import {
   BookOpen,
   Briefcase,
   GalleryVerticalEnd,
+  Home,
   Settings2,
+  Star,
+  User,
 } from "lucide-react";
 import {
   Sidebar,
@@ -45,6 +48,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     navMain: [
+      {
+        title: "Dashbord",
+        url: "/",
+        icon: Home,
+        isActive: true,
+
+      },
       {
         title: "Orientations",
         url: "#",
@@ -91,7 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: "Users",
         url: "#",
-        icon: BookOpen,
+        icon: User,
         items: [
           {
             title: "List",
@@ -105,6 +115,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           //   title: "General",
           //   url: "#",
           // },
+        ],
+      },
+      {
+        title: "Interest",
+        url: "#",
+        icon: Star,
+        items: [
+          {
+            title: "List",
+            url: "/interests",
+          }
         ],
       },
       {

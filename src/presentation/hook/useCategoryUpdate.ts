@@ -40,10 +40,7 @@ const useCategoryUpdate = () => {
     console.log(data)
 
     try {
-        const id=data.id;
       await updateProf.mutateAsync({
-        // professionId: initialData.professionId, // ID de la profession à mettre à jour
-        id,
         ...data,
       });
 

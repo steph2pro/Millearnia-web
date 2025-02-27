@@ -10,6 +10,8 @@ import { STRING_ROUTE_CATEGORY_ADD } from '../utils/const';
 import DataTable from '../components/data-table';
 import { DataTablePagination } from '../components/data-table-pagination2';
 import { Button } from '../components/ui/button';
+import { Pencil, Trash } from 'lucide-react';
+import RetryComponent from '../components/RetryComponent';
 
 const CategoryList = () => {
   const navigate = useNavigate();
@@ -48,7 +50,9 @@ const CategoryList = () => {
 
   // Affichage pendant le chargement ou en cas d'erreur
   if (isLoading) return <Loader />;
-  if (isError) return <div className="text-red-500">Erreur lors de la récupération des catégories.</div>;
+  if (isError) {
+    return <RetryComponent onRetry={catQuery.refetch} />;
+  }
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
@@ -95,18 +99,20 @@ const CategoryList = () => {
                         : 'Aucune profession'}
                     </td>
                     <td className="flex px-4 py-2 space-x-4">
-                      <button
-                        onClick={() => navigate(`/categoryEdit/${category.id}`)}
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        onClick={() => navigate(`/categoryDelete/${category.id}`)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        Supprimer
-                      </button>
+                      
+                    <div className="flex space-x-2">
+                      {/* Bouton Modifier */}
+                      <Button variant="outline" size="icon"
+                          onClick={() => navigate(`/categoryEdit/${category.id}`)} >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+  
+                        {/* Bouton Supprimer */}
+                        <Button variant="destructive" size="icon"
+                          onClick={() => navigate(`/categoryDelete/${category.id}`)}>
+                          <Trash className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}

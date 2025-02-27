@@ -1,3 +1,6 @@
+import Course from "./Cours";
+import Interest from "./Interest";
+
 type UserPorps = {
   id  :          number,   
   name :         string,
@@ -13,6 +16,9 @@ type UserPorps = {
   professions? :  string[],
   comments?  : string[],
   access_token?: string,
+  myCourse?: Course[];
+  interests?: Interest[];
+  // courses?: UserCourse[];
 }
 
 export default UserPorps;

@@ -14,8 +14,8 @@ const useVideoAdd = () => {
 
   // Schéma de validation Yup
   const schema = Yup.object().shape({
-     thumbnail: Yup.string()
-       .required("Le lien de la lien de l'image de la video est requis"),
+     title: Yup.string()
+       .required("Le titre de la video est requis"),
        youtubeId: Yup.string()
        .required("L'ID de la video sur youtube est requis")
    });
@@ -35,18 +35,9 @@ const useVideoAdd = () => {
     if (createProf.isLoading) return;
   
     try {
-      const professionId = parseInt(data.professionId, 10);
-  
-      // Vérification que les conversions sont valides
-      if (isNaN(professionId) ) {
-        console.error(' professionId invalide');
-        return;
-      }
-  
       // Appel de la mutation avec les données converties
       await createProf.mutateAsync({
         ...data,
-        professionId,
       });
   
       // Navigation en cas de succès

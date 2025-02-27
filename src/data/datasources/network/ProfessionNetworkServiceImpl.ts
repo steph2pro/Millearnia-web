@@ -15,10 +15,19 @@ export default class ProfessionNetworkServiceImpl implements ProfessionNetworkSe
         const res = await Http.get<{ professions: Profession[] }>("orientation-getAllPof");
         return res.data.professions; // 🔥 Assure-toi d'extraire le tableau
     }
-    async createtProfessions(name: string, userId: number,categoryId: number,tabs: string[]): Promise<Profession> {
-        const res = await Http.post<Profession>("orientation-createPof",{name,userId,categoryId,tabs});
+    async createtProfessions(profession: ProfessionRequest): Promise<Profession> {
+      const formData = new FormData();
+      for (const key in profession) {
+        formData.append(key, profession[key]);
+      }
+        const res = await Http.post<Profession>("orientation-createPof", formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
     }
+
     async getProfessionById(professionId: number): Promise<Profession> {
         const res = await Http.get<Profession>(`orientation-getPofById/${professionId}`);
         return await res.data;
@@ -29,13 +38,32 @@ export default class ProfessionNetworkServiceImpl implements ProfessionNetworkSe
     }
     
     async updateProfession(profession: ProfessionRequest): Promise<Profession> {
-        const res = await Http.put<Profession>(`orientation-updatePof/${profession.professionId}`, profession);
+      const formData = new FormData();
+      for (const key in profession) {
+        console.log(key, profession[key]); // Ajoutez un log pour vérifier les données
+        formData.append(key, profession[key]);
+      }
+      
+        const res = await Http.put<Profession>(`orientation-updatePof/${profession.professionId}`, formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
     }
 
     
       async createProfessionVideo(professionVideo: ProfessionVideoRequest): Promise<ProfessionVideo> {
-        const res = await Http.post<ProfessionVideo>("orientation-createVideo", professionVideo);
+        const formData = new FormData();
+        for (const key in professionVideo) {
+          console.log(key, professionVideo[key]); // Ajoutez un log pour vérifier les données
+          formData.append(key, professionVideo[key]);
+        }
+        const res = await Http.post<ProfessionVideo>("orientation-createVideo",  formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
     async getProfessionVideos(): Promise<ProfessionVideo[]> {
@@ -47,7 +75,15 @@ export default class ProfessionNetworkServiceImpl implements ProfessionNetworkSe
         return await res.data;
       }
       async updateProfessionVideo(professionVideo: ProfessionVideoRequest): Promise<ProfessionVideo> {
-        const res = await Http.put<ProfessionVideo>(`orientation-updateVideo/${professionVideo.id}`, professionVideo);
+        const formData = new FormData();
+        for (const key in professionVideo) {
+          formData.append(key, professionVideo[key]);
+        }
+        const res = await Http.put<ProfessionVideo>(`orientation-updateVideo/${professionVideo.id}`,   formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
       
@@ -72,7 +108,15 @@ export default class ProfessionNetworkServiceImpl implements ProfessionNetworkSe
     //     return await res.json();
     // } 
     async createProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory> {
-        const res = await Http.post<ProfessionCategory>("orientation-createCategory", professionCategory);
+         const formData = new FormData();
+        for (const key in professionCategory) {
+          formData.append(key, professionCategory[key]);
+        }
+        const res = await Http.post<ProfessionCategory>("orientation-createCategory",  formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
     async getProfessionCategorys(): Promise<ProfessionCategory[]> {
@@ -84,7 +128,15 @@ export default class ProfessionNetworkServiceImpl implements ProfessionNetworkSe
         return await res.data;
       }
       async updateProfessionCategory(professionCategory: ProfessionCategoryRequest): Promise<ProfessionCategory> {
-        const res = await Http.put<ProfessionCategory>(`/orientation-updateCategory/${professionCategory.id}`, professionCategory);
+        const formData = new FormData();
+        for (const key in professionCategory) {
+          formData.append(key, professionCategory[key]);
+        }
+        const res = await Http.put<ProfessionCategory>(`/orientation-updateCategory/${professionCategory.id}`,   formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
       

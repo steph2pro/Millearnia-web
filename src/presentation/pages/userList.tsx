@@ -1,6 +1,6 @@
 import * as React from "react"
 import { ColumnDef, useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, getFilteredRowModel, VisibilityState, flexRender } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import UserPorps from "@/data/models/User";
@@ -11,6 +11,7 @@ import { Loader } from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 
 import { STRING_ROUTE_USER_ADD } from '../utils/const';
+import RetryComponent from "../components/RetryComponent";
 
 
 const UserList = () => {
@@ -133,13 +134,16 @@ const columns: ColumnDef<UserPorps>[] = [
       rowSelection,
       pagination: {
         pageIndex: page - 1,
-        pageSize: 2,
+        pageSize: 10,
       },
     },
   });
 
   if (isLoading) return <Loader />;
-  if (isError) return <div>Error fetching users.</div>;
+  if (isError) {
+    return <RetryComponent onRetry={userQuery.refetch} />;
+  }
+
 
   return (
     <div className="p-4">

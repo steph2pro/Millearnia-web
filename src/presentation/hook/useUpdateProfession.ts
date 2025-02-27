@@ -33,7 +33,7 @@ const useUpdateProfessionForm = () => {
   const {
     register,
     handleSubmit,
-    setValue,
+    setValue,watch,
     formState: { errors },
   } = useForm<ProfessionRequest>({
     resolver: yupResolver(schema),
@@ -48,6 +48,15 @@ const useUpdateProfessionForm = () => {
 
     try {
         const id=data.professionId;
+        
+      console.log('*****interests : ' + data.interests);
+        const formData = new FormData();
+      formData.append("userId", data.userId);
+      formData.append("categoryId", data.categoryId);
+      formData.append("interests", JSON.stringify(data.interests)); // ou traitement similaire
+      formData.append("name", data.name);
+      formData.append("thumbnail", data.thumbnail); // si data.thumbnail est un tableau de fichiers
+  
       await updateProf.mutateAsync({
         // professionId: initialData.professionId, // ID de la profession à mettre à jour
         id,
@@ -65,7 +74,7 @@ const useUpdateProfessionForm = () => {
     register,
     handleSubmit,
     setValue,
-    onSubmit,
+    onSubmit,watch,
     errors,
     isUpdating: updateProf.isLoading,
   };

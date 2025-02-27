@@ -6,6 +6,7 @@ type UserRequest = {
     password  :    String,
     role:          String,
     status:        string,
+    profil:         File,
   }
   
   export default UserRequest;

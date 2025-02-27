@@ -16,5 +16,7 @@ type ProfessionComment ={
     replies: ProfessionComment[];  
     // video: ProfessionVideo;  
     // sender: UserPorps;  
+    video?: ProfessionVideo;
+    sender?: UserPorps;
   }
   export default ProfessionComment;

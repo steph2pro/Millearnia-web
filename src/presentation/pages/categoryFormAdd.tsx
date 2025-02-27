@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../components/Input";
 import useCategoryAdd from "../hook/useCategoryAdd";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { STRING_ROUTE_CATEGORIES } from "../utils/const";
+import { ImageIcon, X } from "lucide-react";
 
 const CategoryFormAdd = () => {
   
   const navigate = useNavigate();
     const { register, handleSubmit, onSubmit, setValue, errors } = useCategoryAdd();
 
-    // Liste unique des professions
+    const [icon, setIcon] = useState<File | null>(null);
+      const [preview, setPreview] = useState<string | null>(null);
+    
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+          setIcon(file);
+          setPreview(URL.createObjectURL(file));
+          setValue("icon", file);
+        }
+      };
+    
+      const removeImage = () => {
+        setIcon(null);
+        setPreview(null);
+        setValue("icon", null);
+      };
+
 
     return (
         <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -32,25 +50,13 @@ const CategoryFormAdd = () => {
                 </svg>
               </button>
   
-              <h1 className="text-3xl font-bold text-center text-primaryColor">Ajouter une video</h1>
+              <h1 className="text-3xl font-bold text-center text-primaryColor">Ajouter une categorie</h1>
   
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="z-20 w-2/4 p-6 mx-auto space-y-4 bg-white sm:w-full"
               >
-             <div className="mb-4">
-                <Label htmlFor="icon" className="block text-sm font-medium text-gray-700">
-                    Lien de l'image de la catégorie
-                </Label>
-                <Input
-                    type="text"
-                    {...register("icon", { required: "Le lien de l'image est requis." })}
-                    placeholder="Lien de l'image de la catégorie"
-                />
-                {errors.icon?.message && (
-                    <p className="text-sm text-red-500">{String(errors.icon.message)}</p>
-                )}
-            </div>
+             
 
             <div className="mb-4">
                 <Label htmlFor="title" className="block text-sm font-medium text-gray-700">
@@ -65,6 +71,27 @@ const CategoryFormAdd = () => {
                     <p className="text-sm text-red-500">{String(errors.title.message)}</p>
                 )}
             </div>
+            <div className="mb-4">
+                <Label>Image de la catégorie</Label>
+                <div className="flex flex-col items-center justify-center w-full p-4 border border-gray-300 rounded-lg">
+                  {preview ? (
+                    <div className="relative w-32 h-32">
+                      <img src={preview} alt="Preview" className="object-cover w-full h-full rounded-md" />
+                      <button onClick={removeImage} className="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center cursor-pointer">
+                      <ImageIcon className="w-12 h-12 text-gray-400" />
+                      <span className="text-sm text-gray-600">Choisir une image</span>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                    </label>
+                  )}
+                </div>
+                {errors.icon?.message && <p className="text-sm text-red-500">{String(errors.icon.message)}</p>}
+              </div>
+
 
                 <Button type="submit" className="w-full" >
                   Ajouter

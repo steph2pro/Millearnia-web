@@ -6,12 +6,31 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import useUserAdd from "../hook/useUserAdd";
 import { useNavigate } from "react-router-dom";
 import { STRING_ROUTE_USERS } from "../utils/const";
+import { ImageIcon, X } from "lucide-react";
 
 const UserFormAdd = () => {
   
   const navigate = useNavigate();
   const { register, setValue, handleSubmit, onSubmit, errors, isCreating } = useUserAdd();
- 
+  
+      const [profil, setProfil] = useState<File | null>(null);
+        const [preview, setPreview] = useState<string | null>(null);
+      
+      const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          const file = event.target.files?.[0];
+          if (file) {
+            setProfil(file);
+            setPreview(URL.createObjectURL(file));
+            setValue("profil", file);
+          }
+        };
+      
+        const removeImage = () => {
+          setProfil(null);
+          setPreview(null);
+          setValue("profil", null);
+        };
+  
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -81,6 +100,28 @@ const UserFormAdd = () => {
                 </Select>
                 {errors.role?.message && <p className="text-sm text-red-500">{errors.role.message}</p>}
               </div>
+              
+            <div className="mb-4">
+                <Label>Profil  de l'utilisateur </Label>
+                <div className="flex flex-col items-center justify-center w-full p-4 border border-gray-300 rounded-lg">
+                  {preview ? (
+                    <div className="relative w-32 h-32">
+                      <img src={preview} alt="Preview" className="object-cover w-full h-full rounded-md" />
+                      <button onClick={removeImage} className="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center cursor-pointer">
+                      <ImageIcon className="w-12 h-12 text-gray-400" />
+                      <span className="text-sm text-gray-600">Choisir une image</span>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                    </label>
+                  )}
+                </div>
+                {errors.profil?.message && <p className="text-sm text-red-500">{String(errors.profil.message)}</p>}
+              </div>
+
 
               <Button type="submit" className="w-full" disabled={isCreating}>
                 {isCreating ? "En cours d'ajout..." : "Ajouter"}

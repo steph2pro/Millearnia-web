@@ -19,7 +19,15 @@ export default class UserNetworkServiceImpl implements UserNetworkService {
     }
 
     async createUser(user: UserRequest): Promise<UserPorps> {
-        const res = await Http.post<UserPorps>("user-store", user);
+      const formData = new FormData();
+        for (const key in user) {
+          formData.append(key, user[key]);
+        }
+        const res = await Http.post<UserPorps>("user-store",   formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
       async getUsers(page: number = 1, perPage?: number ): Promise<PaginatedResponse> {
@@ -35,7 +43,15 @@ export default class UserNetworkServiceImpl implements UserNetworkService {
         return await res.data;
       }
       async updateUser(user: UserRequest): Promise<UserPorps> {
-        const res = await Http.put<UserPorps>(`user-update/${user.id}`, user);
+      const formData = new FormData();
+        for (const key in user) {
+          formData.append(key, user[key]);
+        }
+        const res = await Http.put<UserPorps>(`user-update/${user.id}`,    formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         return await res.data;
       }
       
